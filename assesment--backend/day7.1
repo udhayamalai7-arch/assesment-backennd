@@ -1,0 +1,90 @@
+using System;
+
+class Employee
+{
+    public int empId;
+    public string empName;
+    public double salary;
+
+    public void GetData()
+    {
+        Console.Write("Enter Employee ID: ");
+        empId = int.Parse(Console.ReadLine());
+
+        Console.Write("Enter Employee Name: ");
+        empName = Console.ReadLine();
+
+        Console.Write("Enter Salary: ");
+        salary = double.Parse(Console.ReadLine());
+    }
+
+    public void Display()
+    {
+        Console.WriteLine("\nEmployee Details");
+        Console.WriteLine("ID     : " + empId);
+        Console.WriteLine("Name   : " + empName);
+        Console.WriteLine("Salary : " + salary);
+    }
+
+    static void Main()
+    {
+        Employee e = new Employee();
+        e.GetData();
+        e.Display();
+    }
+}
+console,WriteLine("=================")
+
+class Vehicle
+{
+    public string vehicleType;
+}
+
+class Car : Vehicle
+{
+    public string brand;
+}
+
+class SportsCar : Car
+{
+    static void Main()
+    {
+        SportsCar sc = new SportsCar();
+        sc.vehicleType = "Four Wheeler";
+        sc.brand = "Ferrari";
+
+        Console.WriteLine("Vehicle Type : " + sc.vehicleType);
+        Console.WriteLine("Brand        : " + sc.brand);
+    }
+}
+
+
+
+class Shape
+{
+    public void Display()
+    {
+        Console.WriteLine("This is a Shape");
+    }
+}
+
+class Rectangle : Shape
+{
+    public int length;
+    public int breadth;
+
+    public void Area()
+    {
+        Console.WriteLine("Area = " + (length * breadth));
+    }
+
+    static void Main()
+    {
+        Rectangle r = new Rectangle();
+        r.Display();   // inherited
+        r.length = 5;
+        r.breadth = 4;
+        r.Area();
+    }
+}
+
