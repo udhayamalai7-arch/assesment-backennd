@@ -1,0 +1,104 @@
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        int rows = 4;
+
+        for (int i = 1; i <= rows; i++)
+        {
+            for (int space = i; space < rows; space++)
+                Console.Write(" ");
+
+            for (int star = 1; star <= (2 * i - 1); star++)
+                Console.Write("*");
+
+            Console.WriteLine();
+        }
+        console.WriteLine("-----------------------");
+         int a = 10, b = 20;
+
+        a = a + b;
+        b = a - b;
+        a = a - b;
+
+        Console.WriteLine("a = " + a);
+        Console.WriteLine("b = " + b);
+        console.WriteLine("---------------------------");
+
+        int[] arr = { 5, 2, 9, 1, 7 };
+
+        int min = arr[0];
+        int max = arr[0];
+
+        for (int i = 1; i < arr.Length; i++)
+        {
+            if (arr[i] < min)
+                min = arr[i];
+
+            if (arr[i] > max)
+                max = arr[i];
+        }
+
+        Console.WriteLine("Minimum = " + min);
+        Console.WriteLine("Maximum = " + max);
+        console.WriteLine("-------------------------------------");
+        int[] arr = { 1, 2, 3, 2, 4, 1, 5 };
+        int count = 0;
+
+        for (int i = 0; i < arr.Length; i++)
+        {
+            for (int j = i + 1; j < arr.Length; j++)
+            {
+                if (arr[i] == arr[j])
+                {
+                    count++;
+                    break;
+                }
+            }
+        }
+
+        Console.WriteLine("Duplicate count = " + count);
+        console.WriteLine("---------------------------");
+         int[] a = { 1, 3, 5 };
+        int[] b = { 2, 4, 6 };
+
+        int[] c = new int[a.Length + b.Length];
+        int i = 0, j = 0, k = 0;
+
+        while (i < a.Length && j < b.Length)
+        {
+            if (a[i] < b[j])
+                c[k++] = a[i++];
+            else
+                c[k++] = b[j++];
+        }
+
+        while (i < a.Length)
+            c[k++] = a[i++];
+
+        while (j < b.Length)
+            c[k++] = b[j++];
+
+        Console.WriteLine("Merged Array:");
+        foreach (int n in c)
+            Console.Write(n + " ");
+            console.WriteLine("------------------");
+             int[,] a = { { 1, 2 }, { 3, 4 } };
+        int[,] b = { { 5, 6 }, { 7, 8 } };
+        int[,] c = new int[2, 2];
+
+        for (int i = 0; i < 2; i++)
+        {
+            for (int j = 0; j < 2; j++)
+            {
+                c[i, j] = 0;
+                for (int k = 0; k < 2; k++)
+                {
+                    c[i, j] += a[i, k] * b[k, j];
+                }
+                console.WriteLine("-----------------");
+                
+    }
+}
