@@ -1,0 +1,182 @@
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        int n = 5, fact = 1;
+
+        for (int i = 1; i <= n; i++)
+        {
+            fact *= i;
+        }
+
+        Console.WriteLine("Factorial = " + fact);
+        console.WriteLine("-----------------------------------------");
+        using System;
+
+class Program 1
+{
+    static void Main()
+    {
+        int n = 7;
+        bool isPrime = true;
+
+        if (n <= 1)
+            isPrime = false;
+
+        for (int i = 2; i <= n / 2; i++)
+        {
+            if (n % i == 0)
+            {
+                isPrime = false;
+                break;
+            }
+        }
+
+        Console.WriteLine(isPrime ? "Prime Number" : "Not a Prime Number");
+    }
+}
+
+
+using System;
+
+class Program 2
+{
+    static void Main()
+    {
+        for (int n = 2; n <= 50; n++)
+        {
+            bool isPrime = true;
+
+            for (int i = 2; i <= n / 2; i++)
+            {
+                if (n % i == 0)
+                {
+                    isPrime = false;
+                    break;
+                }
+            }
+
+            if (isPrime)
+                Console.Write(n + " ");
+        }
+    }
+}
+  
+
+  using System;
+
+class Program 3
+{
+    static void Main()
+    {
+        int n = 153, temp = n, sum = 0;
+
+        while (n > 0)
+        {
+            int digit = n % 10;
+            sum += digit * digit * digit;
+            n /= 10;
+        }
+
+        Console.WriteLine(sum == temp ? "Armstrong Number" : "Not an Armstrong Number");
+    }
+}
+
+using System;
+
+class Program 4
+{
+    static void Main()
+    {
+        for (int n = 1; n <= 500; n++)
+        {
+            int temp = n, sum = 0;
+
+            while (temp > 0)
+            {
+                int digit = temp % 10;
+                sum += digit * digit * digit;
+                temp /= 10;
+            }
+
+            if (sum == n)
+                Console.Write(n + " ");
+        }
+    }
+}
+
+using System;
+
+class Program 5
+{
+    static void Main()
+    {
+        int a = 0, b = 1, c;
+
+        Console.Write(a + " " + b + " ");
+
+        for (int i = 1; i <= 10; i++)
+        {
+            c = a + b;
+            Console.Write(c + " ");
+            a = b;
+            b = c;
+        }
+    }
+}
+using System;
+
+class Program 6
+{
+    static void Main()
+    {
+        int n = 5;
+
+        for (int i = 1; i <= 10; i++)
+        {
+            Console.WriteLine(i + " * " + n + " = " + (i * n));
+        }
+    }
+}
+
+using System;
+
+class Program 7
+{
+    static void Main()
+    {
+        int n = 123, sum = 0;
+
+        while (n > 0)
+        {
+            sum += n % 10;
+            n /= 10;
+        }
+
+        Console.WriteLine("Sum of digits = " + sum);
+    }
+}
+
+using System;
+
+class Program 8
+{
+    static void Main()
+    {
+        string str = "MALAYALAM";
+        string rev = "";
+
+        for (int i = str.Length - 1; i >= 0; i--)
+        {
+            rev += str[i];
+        }
+
+        Console.WriteLine(str == rev ? "Palindrome" : "Not a Palindrome");
+    }
+}
+
+
+    }
+}
