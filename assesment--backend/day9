@@ -1,0 +1,125 @@
+using System;
+using System.Collections.Generic;
+
+#regiontask1
+
+// Step 1: Interface
+interface IShape
+{
+    double GetArea();
+}
+
+// Step 2: Square class
+class Square : IShape
+{
+    double side;
+
+    public Square(double side)
+    {
+        this.side = side;
+    }
+
+    public double GetArea()
+    {
+        return side * side;
+    }
+}
+
+// Step 3: Circle class
+class Circle : IShape
+{
+    double radius;
+
+    public Circle(double radius)
+    {
+        this.radius = radius;
+    }
+
+    public double GetArea()
+    {
+        return 3.14 * radius * radius;
+    }
+}
+
+#endregion
+
+#region ===== TASK 2 : MEDIA PLAYER CONTROLLER =====
+
+// Step 1: Interfaces
+interface IPlayable
+{
+    void Play();
+    void Stop();
+}
+
+interface IRecordable
+{
+    void Record();
+}
+
+// Step 2: Smartphone class (Multiple Interfaces)
+class Smartphone : IPlayable, IRecordable
+{
+    public void Play()
+    {
+        Console.WriteLine("Smartphone is playing music");
+    }
+
+    public void Stop()
+    {
+        Console.WriteLine("Smartphone stopped playing");
+    }
+
+    public void Record()
+    {
+        Console.WriteLine("Smartphone is recording audio");
+    }
+}
+
+// Step 3: OldRadio class (Single Interface)
+class OldRadio : IPlayable
+{
+    public void Play()
+    {
+        Console.WriteLine("Old Radio is playing");
+    }
+
+    public void Stop()
+    {
+        Console.WriteLine("Old Radio stopped");
+    }
+}
+
+#endregion
+
+// ===== MAIN PROGRAM =====
+class Program
+{
+    static void Main()
+    {
+        Console.WriteLine("---- TASK 1: Shape Calculator ----");
+
+        // Step 4: List of IShape
+        List<IShape> shapes = new List<IShape>();
+        shapes.Add(new Square(5));
+        shapes.Add(new Circle(3));
+
+        foreach (IShape shape in shapes)
+        {
+            Console.WriteLine("Area = " + shape.GetArea());
+        }
+
+        Console.WriteLine("\n---- TASK 2: Media Player Controller ----");
+
+        Smartphone phone = new Smartphone();
+        phone.Play();
+        phone.Record();
+        phone.Stop();
+
+        Console.WriteLine();
+
+        OldRadio radio = new OldRadio();
+        radio.Play();
+        radio.Stop();
+    }
+}
