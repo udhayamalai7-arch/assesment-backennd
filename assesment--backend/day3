@@ -1,0 +1,131 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace loop
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            for (int i = 1; i <= 20; i++)
+            {
+                Console.WriteLine(i);
+            }
+            Console.ReadLine();
+            Console.WriteLine(----------------2nd--------------------);
+            int a, b;
+
+            Console.WriteLine("user define odd no series");
+
+            Console.WriteLine("enter start value");
+            a = int.Parse(Console.ReadLine());   
+
+            Console.WriteLine("enter the end value");
+            b = Convert.ToInt32(Console.ReadLine());
+
+            for (int j = a; j <= b; j++)
+            {
+                if (j % 2 != 0)
+                {
+                    Console.WriteLine(j);
+                }
+            }
+
+            Console.ReadLine();
+            Console.WriteLine("------------------------3rd-----");
+
+            for (int i = 0; i <= 20; i += 2)
+            {
+                Console.Write(i + " ");
+            }
+            console.WriteLine("-----------4th----------");
+            for (int i = 0; i <= 25; i += 5)
+       {
+    Console.Write(i + " ");
+     }
+         console.WriteLine("-----------------5th------");
+          int n = 5, sum = 0;
+           for (int i = 1; i <= n; i++)
+        {
+    sum += i;
+    }
+       Console.WriteLine(sum);
+
+        }
+      console.WriteLine("-----------6th");
+      int sum = 0;
+for (int i = 0; i <= 20; i += 2)
+{
+    sum += i;
+}
+Console.WriteLine(sum);
+console.WriteLine("---------------7th----");
+int sum = 0;
+for (int i = 1; i <= 20; i += 2)
+{
+    sum += i;
+}
+Console.WriteLine(sum);
+console.WriteLine("------------8th-----");
+
+
+double sum = 0, fact = 1;
+for (int i = 1; i <= 5; i++)
+{
+    fact *= i;
+    sum += i / fact;
+}
+Console.WriteLine(sum);
+
+
+double sum = 0;
+
+for (int i = 2; i <= 6; i += 2)
+{
+    double fact = 1;
+    for (int j = 1; j <= i; j++)
+        fact *= j;
+
+    sum += i / fact;
+}
+Console.WriteLine(sum);
+
+
+
+double sum = 0;
+
+for (int i = 1; i <= 5; i += 2)
+{
+    double fact = 1;
+    for (int j = 1; j <= i; j++)
+        fact *= j;
+
+    sum += i / fact;
+}
+Console.WriteLine(sum);
+
+   int n = 5, fact = 1;
+for (int i = 1; i <= n; i++)
+{
+    fact *= i;
+}
+Console.WriteLine(fact);
+int n = 7, count = 0;
+
+for (int i = 1; i <= n; i++)
+{
+    if (n % i == 0)
+        count++;
+}
+
+if (count == 2)
+    Console.WriteLine("Prime");
+else
+    Console.WriteLine("Not Prime");
+
+
+    }
+}
