@@ -1,0 +1,88 @@
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter first number: ");
+        int a = int.Parse(Console.ReadLine());
+
+        Console.Write("Enter second number: ");
+        int b = int.Parse(Console.ReadLine());
+
+        Console.Write("Enter third number: ");
+        int c = int.Parse(Console.ReadLine());
+
+        if (a > b && a > c)
+            Console.WriteLine("Largest number is: " + a);
+        else if (b > c)
+            Console.WriteLine("Largest number is: " + b);
+        else
+            Console.WriteLine("Largest number is: " + c);
+            console.WriteLine("-----------------------------------");
+             Console.Write("Enter student mark: ");
+        int mark = int.Parse(Console.ReadLine());
+
+        if (mark >= 90)
+            Console.WriteLine("Grade: A");
+        else if (mark >= 75)
+            Console.WriteLine("Grade: B");
+        else if (mark >= 60)
+            Console.WriteLine("Grade: C");
+        else if (mark >= 50)
+            Console.WriteLine("Grade: D");
+        else
+            Console.WriteLine("Grade: Fail");
+            console.WriteLine("***********3rd *********************************");
+            
+            int mark;
+
+        Console.Write("Enter student mark: ");
+        int mark = int.Parse(Console.ReadLine());
+
+        switch (mark / 10)
+        {
+            case 10:
+            case 9:
+                Console.WriteLine("Grade: A");
+                break;
+            case 8:
+            case 7:
+                Console.WriteLine("Grade: B");
+                break;
+            case 6:
+                Console.WriteLine("Grade: C");
+                break;
+            case 5:
+                Console.WriteLine("Grade: D");
+                break;
+            default:
+                Console.WriteLine("Grade: Fail");
+                break;
+        }
+        console.WriteLine("4th ---------------------------------------------");
+
+        Console.Write("Enter age: ");
+        int age = int.Parse(Console.ReadLine());
+
+        string result = (age >= 18)  "Eligible for Employment" : "Not Eligible for Employment";
+        Console.WriteLine(result);
+    }
+    console.writeline("------------------------------------5th------");
+    Console.Write("Enter first number: ");
+        int a = int.Parse(Console.ReadLine());
+
+        Console.Write("Enter second number: ");
+        int b = int.Parse(Console.ReadLine());
+
+        Console.WriteLine("Addition: " + (a + b));
+        Console.WriteLine("Subtraction: " + (a - b));
+        Console.WriteLine("Multiplication: " + (a * b));
+        Console.WriteLine("Division: " + (a / b));
+        Console.WriteLine("Modulus: " + (a % b));
+
+        Console.WriteLine("a > b : " + (a > b));
+        Console.WriteLine("a == b : " + (a == b));
+        Console.WriteLine("a != b : " + (a != b));
+    }
+}
