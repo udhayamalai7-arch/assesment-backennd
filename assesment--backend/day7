@@ -1,0 +1,26 @@
+using System;
+
+class Student
+{
+    public int rollNo;
+    public string name;
+    public int marks;
+}
+
+class Program
+{
+    static void Main()
+    {
+        Student s = new Student();
+
+        s.rollNo = 101;
+        s.name = "Udhaya";
+        s.marks = 85;
+
+        Console.WriteLine("Roll No : " + s.rollNo);
+        Console.WriteLine("Name    : " + s.name);
+        Console.WriteLine("Marks   : " + s.marks);
+    }
+
+}
+
