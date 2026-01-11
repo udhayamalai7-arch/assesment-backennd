@@ -1,0 +1,120 @@
+using System;
+
+static class MathOperation
+{
+    public static void Add(int a, int b)
+    {
+        Console.WriteLine("Sum = " + (a + b));
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        MathOperation.Add(10, 20);
+    }
+}
+console.writeline("-------------------------");
+
+
+sealed class Bank
+{
+    public void Display()
+    {
+        Console.WriteLine("This is a Sealed Class");
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Bank b = new Bank();
+        b.Display();
+    }
+}
+console.writeline("-------------");
+
+
+abstract class Shape
+{
+    public abstract void Draw();
+}
+
+class Circle : Shape
+{
+    public override void Draw()
+    {
+        Console.WriteLine("Drawing Circle");
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Shape s = new Circle();
+        s.Draw();
+    }
+}
+console.Write("---------------------------");
+
+
+class Animal
+{
+    public virtual void Sound()
+    {
+        Console.WriteLine("Animal makes sound");
+    }
+}
+
+class Dog : Animal
+{
+    public override void Sound()
+    {
+        Console.WriteLine("Dog barks");
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Animal a = new Dog();
+        a.Sound();
+    }
+}
+console.Write("-------------");
+
+
+
+class Parent
+{
+    private int a = 10;
+    internal int b = 20;
+    protected int c = 30;
+    protected internal int d = 40;
+    public int e = 50;
+
+    public void Show()
+    {
+        Console.WriteLine("Private = " + a);
+    }
+}
+
+class Child : Parent
+{
+    static void Main()
+    {
+        Child obj = new Child();
+
+        
+        Console.WriteLine("Internal = " + obj.b);
+        Console.WriteLine("Protected = " + obj.c);
+        Console.WriteLine("Protected Internal = " + obj.d);
+        Console.WriteLine("Public = " + obj.e);
+
+        obj.Show();
+    }
+}
