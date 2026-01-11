@@ -1,0 +1,117 @@
+using System;
+using System.IO;
+
+namespace MyUtilities
+{
+    public class MathHelper
+    {
+        public int Add(int a, int b)
+        {
+            return a + b;
+        }
+    }
+}
+
+class NegativeNumberException : Exception
+{
+    public NegativeNumberException(string message) : base(message)
+    {
+    }
+}
+
+namespace StudentData
+{
+    public class StudentFileHandler
+    {
+        string filePath = "students.txt";
+
+        public void WriteStudents()
+        {
+            try
+            {
+                using (FileStream fs = new FileStream(filePath, FileMode.Create))
+                using (StreamWriter sw = new StreamWriter(fs))
+                {
+                    sw.WriteLine("Udhaya");
+                    sw.WriteLine("Arun");
+                    sw.WriteLine("Priya");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        public void ReadStudents()
+        {
+            try
+            {
+                using (FileStream fs = new FileStream(filePath, FileMode.Open))
+                using (StreamReader sr = new StreamReader(fs))
+                {
+                    Console.WriteLine(sr.ReadToEnd());
+                }
+            }
+            catch (FileNotFoundException)
+            {
+                Console.WriteLine("File not found");
+            }
+            catch (UnauthorizedAccessException)
+            {
+                Console.WriteLine("Access denied");
+            }
+        }
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        MyUtilities.MathHelper mh = new MyUtilities.MathHelper();
+        Console.WriteLine(mh.Add(10, 20));
+
+        try
+        {
+            using (FileStream fs = new FileStream("message.txt", FileMode.Create))
+            using (StreamWriter sw = new StreamWriter(fs))
+            {
+                sw.WriteLine("Hello C# Streams");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+
+        try
+        {
+            using (FileStream fs = new FileStream("message.txt", FileMode.Open))
+            using (StreamReader sr = new StreamReader(fs))
+            {
+                Console.WriteLine(sr.ReadToEnd());
+            }
+        }
+        catch (FileNotFoundException)
+        {
+            Console.WriteLine("File not found");
+        }
+
+        try
+        {
+            int num = int.Parse(Console.ReadLine());
+            if (num < 0)
+                throw new NegativeNumberException("Negative numbers are not allowed");
+            Console.WriteLine(num);
+        }
+        catch (NegativeNumberException ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+
+        StudentData.StudentFileHandler sfh = new StudentData.StudentFileHandler();
+        sfh.WriteStudents();
+        sfh.ReadStudents();
+    }
+}
