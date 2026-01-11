@@ -1,0 +1,70 @@
+using System;
+
+class Employee
+{
+
+    public int empId;
+    public string empName;
+    public double salary;
+
+
+    public void GetData()
+    {
+        empId = 101;
+        empName = "Udhaya";
+        salary = 25000;
+    }
+
+
+    public void DisplayData()
+    {
+        Console.WriteLine("Employee ID : " + empId);
+        Console.WriteLine("Employee Name : " + empName);
+        Console.WriteLine("Salary : " + salary);
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Employee emp = new Employee();
+        emp.GetData();
+        emp.DisplayData();
+    }
+}console.WriteLine("--------------------");
+class Sample1
+{
+    public int x = 100;
+
+    public void Display()
+    {
+        Console.WriteLine("Value of x = " + x);
+    }
+}
+
+class Sample2
+{
+    static void Main()
+    {
+        Sample1 obj = new Sample1();
+        obj.Display();
+    }
+}
+console.writeline("--------------");
+
+class Sample
+{
+    int a = 10;
+
+    void Show()
+    {
+        Console.WriteLine("Value of a = " + a);
+    }
+
+    static void Main()
+    {
+        Sample obj = new Sample();
+        obj.Show();
+    }
+}
