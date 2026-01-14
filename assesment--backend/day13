@@ -1,0 +1,130 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.IO;
+
+#region 1. Math Utilities Library
+namespace MathUtilities
+{
+    public class Calculator
+    {
+        public int Add(int a, int b) => a + b;
+        public int Subtract(int a, int b) => a - b;
+        public int Multiply(int a, int b) => a * b;
+        public int Divide(int a, int b) => a / b;
+    }
+
+    public class AdvancedMath
+    {
+        public double Power(double a, double b) => Math.Pow(a, b);
+        public double SquareRoot(double a) => Math.Sqrt(a);
+
+        public int Factorial(int n)
+        {
+            int fact = 1;
+            for (int i = 1; i <= n; i++)
+                fact *= i;
+            return fact;
+        }
+    }
+}
+#endregion
+
+#region 2. Student Management Library
+namespace StudentLibrary
+{
+    public class Student
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public int Marks { get; set; }
+
+        public string CalculateGrade()
+        {
+            if (Marks >= 80) return "A";
+            else if (Marks >= 60) return "B";
+            else return "C";
+        }
+    }
+
+    public class StudentService
+    {
+        private List<Student> students = new List<Student>();
+
+        public void AddStudent(Student student)
+        {
+            students.Add(student);
+        }
+
+        public double AverageMarks()
+        {
+            return students.Average(s => s.Marks);
+        }
+    }
+}
+#endregion
+
+#region 3. Banking System Library
+namespace BankLibrary
+{
+    public class Account
+    {
+        public int AccountNumber { get; set; }
+        public double Balance { get; protected set; }
+
+        public void Deposit(double amount)
+        {
+            Balance += amount;
+        }
+
+        public virtual void Withdraw(double amount)
+        {
+            Balance -= amount;
+        }
+
+        public double CheckBalance() => Balance;
+    }
+
+    public class SavingsAccount : Account
+    {
+        public override void Withdraw(double amount)
+        {
+            if (Balance - amount >= 1000)
+                Balance -= amount;
+            else
+                Console.WriteLine("Minimum balance required!");
+        }
+    }
+
+    public class CurrentAccount : Account
+    {
+    }
+}
+#endregion
+
+#region 4. Logger Library
+namespace LoggerLibrary
+{
+    public class Logger
+    {
+        private string filePath = "log.txt";
+
+        public void LogInfo(string message)
+        {
+            File.AppendAllText(filePath, "INFO: " + message + "\n");
+            Console.WriteLine("INFO: " + message);
+        }
+
+        public void LogWarning(string message)
+        {
+            File.AppendAllText(filePath, "WARNING: " + message + "\n");
+        }
+
+        public void LogError(string message)
+        {
+            File.AppendAllText(filePath, "ERROR: " + message + "\n");
+        }
+    }
+}
+#endregion
+
