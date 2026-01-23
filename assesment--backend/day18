@@ -1,0 +1,83 @@
+------------------- STUDENT -------------------
+CREATE TABLE Student (
+    Id INT,
+    Name VARCHAR(50)
+);
+
+INSERT INTO Student VALUES (1, 'Arun');
+
+SELECT * FROM Student;
+
+UPDATE Student SET Name = 'Kumar' WHERE Id = 1;
+
+DELETE FROM Student WHERE Id = 1;
+
+DROP TABLE Student;
+
+
+------------------- STAFF -------------------
+CREATE TABLE Staff (
+    Id INT,
+    Name VARCHAR(50)
+);
+
+INSERT INTO Staff VALUES (1, 'Ravi');
+
+SELECT * FROM Staff;
+
+UPDATE Staff SET Name = 'Raj' WHERE Id = 1;
+
+DELETE FROM Staff WHERE Id = 1;
+
+DROP TABLE Staff;
+
+
+------------------- PRODUCT -------------------
+CREATE TABLE Product (
+    Id INT,
+    Name VARCHAR(50)
+);
+
+INSERT INTO Product VALUES (1, 'Pen');
+
+SELECT * FROM Product;
+
+UPDATE Product SET Name = 'Pencil' WHERE Id = 1;
+
+DELETE FROM Product WHERE Id = 1;
+
+DROP TABLE Product;
+
+
+------------------- CUSTOMER -------------------
+CREATE TABLE Customer (
+    Id INT,
+    Name VARCHAR(50)
+);
+
+INSERT INTO Customer VALUES (1, 'Kumar');
+
+SELECT * FROM Customer;
+
+UPDATE Customer SET Name = 'Siva' WHERE Id = 1;
+
+DELETE FROM Customer WHERE Id = 1;
+
+DROP TABLE Customer;
+
+
+------------------- EMPLOYEE -------------------
+CREATE TABLE Employee (
+    Id INT,
+    Name VARCHAR(50)
+);
+
+INSERT INTO Employee VALUES (1, 'Suresh');
+
+SELECT * FROM Employee;
+
+UPDATE Employee SET Name = 'Ramesh' WHERE Id = 1;
+
+DELETE FROM Employee WHERE Id = 1;
+
+DROP TABLE Employee;

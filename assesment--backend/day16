@@ -1,0 +1,115 @@
+using System;
+using System.IO;
+
+delegate int MathOperation(int a, int b);
+delegate string StringOperation(string input);
+delegate void Notify();
+delegate void Operation(int a, int b);
+delegate void Logger(string message);
+
+class Program
+{
+    static void Main()
+    {
+        Console.WriteLine("-------------------");
+        MathOperation mathOp;
+        mathOp = Add;
+        Console.WriteLine("Add: " + mathOp(10, 5));
+        mathOp = Subtract;
+        Console.WriteLine("Subtract: " + mathOp(10, 5));
+
+        Console.WriteLine("-------------------");
+        StringOperation strOp;
+        Console.Write("Enter a string: ");
+        string input = Console.ReadLine();
+        strOp = ToUpperCase;
+        Console.WriteLine(strOp(input));
+        strOp = ReverseString;
+        Console.WriteLine(strOp(input));
+
+        Console.WriteLine("-------------------");
+        Notify notify = SendEmail;
+        notify += SendSMS;
+        notify += SendPushNotification;
+        notify();
+
+        Console.WriteLine("-------------------");
+        Process(5, 3, AddProcess);
+        Process(5, 3, MultiplyProcess);
+
+        Console.WriteLine("-------------------");
+        Logger log = LogToConsole;
+        log += LogToFile;
+        log += LogToDatabase;
+        log("System Started");
+
+        Console.WriteLine("-------------------");
+    }
+
+    static int Add(int a, int b)
+    {
+        return a + b;
+    }
+
+    static int Subtract(int a, int b)
+    {
+        return a - b;
+    }
+
+    static string ToUpperCase(string input)
+    {
+        return input.ToUpper();
+    }
+
+    static string ReverseString(string input)
+    {
+        char[] arr = input.ToCharArray();
+        Array.Reverse(arr);
+        return new string(arr);
+    }
+
+    static void SendEmail()
+    {
+        Console.WriteLine("Email Sent");
+    }
+
+    static void SendSMS()
+    {
+        Console.WriteLine("SMS Sent");
+    }
+
+    static void SendPushNotification()
+    {
+        Console.WriteLine("Push Notification Sent");
+    }
+
+    static void Process(int a, int b, Operation op)
+    {
+        op(a, b);
+    }
+
+    static void AddProcess(int a, int b)
+    {
+        Console.WriteLine("Add: " + (a + b));
+    }
+
+    static void MultiplyProcess(int a, int b)
+    {
+        Console.WriteLine("Multiply: " + (a * b));
+    }
+
+    static void LogToConsole(string message)
+    {
+        Console.WriteLine("Console Log: " + message);
+    }
+
+    static void LogToFile(string message)
+    {
+        Console.WriteLine("File Log: " + message);
+    }
+
+    static void LogToDatabase(string message)
+    {
+        Console.WriteLine("Database Log: " + message);
+    }
+}

@@ -1,0 +1,52 @@
+using System;
+using System.Collections.Generic;
+
+class Program
+{
+    static void Main()
+    {
+        List<int> list = new List<int>() { 10, 20, 30, 20, 40, 10 };
+
+        Console.WriteLine("-------------------");
+        Display(list);
+
+        Console.WriteLine("-------------------");
+        list.Add(50);
+        list.Remove(20);
+        Display(list);
+
+        Console.WriteLine("-------------------");
+        Console.WriteLine(list.Contains(30) ? "Found" : "Not Found");
+
+        Console.WriteLine("-------------------");
+        list.Sort();
+        Display(list);
+
+        Console.WriteLine("-------------------");
+        Console.WriteLine("Minimum: " + list[0]);
+        Console.WriteLine("Maximum: " + list[list.Count - 1]);
+
+        Console.WriteLine("-------------------");
+        List<int> uniqueList = new List<int>();
+        foreach (int item in list)
+            if (!uniqueList.Contains(item))
+                uniqueList.Add(item);
+        Display(uniqueList);
+
+        Console.WriteLine("-------------------");
+        Console.WriteLine("Count: " + uniqueList.Count);
+
+        Console.WriteLine("-------------------");
+        uniqueList.Reverse();
+        Display(uniqueList);
+
+        Console.WriteLine("-------------------");
+    }
+
+    static void Display(List<int> list)
+    {
+        foreach (int item in list)
+            Console.Write(item + " ");
+        Console.WriteLine();
+    }
+}
