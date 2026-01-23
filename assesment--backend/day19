@@ -42,7 +42,7 @@ CREATE TABLE Product (
 
 ------------------------------------------------
 
--- 2. CRUD OPERATIONS
+-- 2. 
 INSERT INTO Dept VALUES (1,'IT');
 INSERT INTO Student VALUES (1,'Ravi','ravi@gmail.com',1);
 SELECT * FROM Student;
@@ -51,7 +51,7 @@ DELETE FROM Student WHERE StudentId=1;
 
 ------------------------------------------------
 
--- 3. PRIMARY KEY CONSTRAINTS
+-- 3.
 
 -- Column Level
 CREATE TABLE PK_Column (
@@ -72,37 +72,34 @@ CREATE TABLE Attendance (
 
 ------------------------------------------------
 
--- 4. UNIQUE CONSTRAINTS
+-- 4. 
 
--- Column Level
 CREATE TABLE UQ_Column (
     Email VARCHAR(50) UNIQUE
 );
 
--- Table Level
-ALTER TABLE Student
-ADD CONSTRAINT UQ_Student_Email UNIQUE (Email);
 
--- Composite Unique
+ALTER TABLE Student
+ADD CONSTRAINT UQ_Student_Email UNIQUE (Email)
 ALTER TABLE Staff
 ADD CONSTRAINT UQ_Staff_NamePhone UNIQUE (Name, Phone);
 
 ------------------------------------------------
 
--- 5. FOREIGN KEY CONSTRAINTS
+-- 5. 
 
--- Column Level
+
 CREATE TABLE Orders (
     OrderId INT PRIMARY KEY,
     CustomerId INT REFERENCES Customer(CustomerId)
 );
 
--- Table Level
+
 ALTER TABLE Product
 ADD CONSTRAINT FK_Product_Customer
 FOREIGN KEY (CustomerId) REFERENCES Customer(CustomerId);
 
--- Composite Foreign Key
+
 CREATE TABLE Marks (
     StudentId INT,
     AttDate DATE,
@@ -114,7 +111,7 @@ CREATE TABLE Marks (
 
 ------------------------------------------------
 
--- 6. CREATE / DROP PRIMARY KEY (Existing Table)
+-- 6. 
 ALTER TABLE Employee
 ADD CONSTRAINT PK_Employee PRIMARY KEY (EmpId);
 
@@ -123,7 +120,7 @@ DROP CONSTRAINT PK_Employee;
 
 ------------------------------------------------
 
--- 7. CREATE / DROP UNIQUE (Existing Table)
+-- 7. 
 ALTER TABLE Customer
 ADD CONSTRAINT UQ_Customer_Email UNIQUE (Email);
 
@@ -141,12 +138,12 @@ DROP CONSTRAINT FK_Employee_Dept;
 
 ------------------------------------------------
 
--- 9. ALTER / DROP TABLE
+-- 9. 
 ALTER TABLE Student ADD Age INT;
--- DROP TABLE Student;
 
 
--- 10. STORED PROCEDURES (CRUD)
+
+-- 10. 
 
 -- INSERT
 CREATE PROCEDURE sp_InsertStudent
