@@ -132,7 +132,6 @@ DROP CONSTRAINT UQ_Customer_Email;
 
 ------------------------------------------------
 
--- 8. CREATE / DROP FOREIGN KEY (Existing Table)
 ALTER TABLE Employee
 ADD CONSTRAINT FK_Employee_Dept
 FOREIGN KEY (DeptId) REFERENCES Dept(DeptId);
@@ -146,7 +145,6 @@ DROP CONSTRAINT FK_Employee_Dept;
 ALTER TABLE Student ADD Age INT;
 -- DROP TABLE Student;
 
-------------------------------------------------
 
 -- 10. STORED PROCEDURES (CRUD)
 
@@ -177,4 +175,4 @@ AS
 DELETE FROM Student WHERE StudentId=@id;
 GO
 
-/* ========== END OF SINGLE SQL FILE ========== */
+

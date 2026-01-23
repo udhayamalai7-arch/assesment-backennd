@@ -1,0 +1,118 @@
+
+
+-- CUSTOMER TABLE
+CREATE TABLE Customer (
+    CustomerID INT PRIMARY KEY,
+    FirstName VARCHAR(50),
+    LastName VARCHAR(50),
+    Email VARCHAR(100),
+    Phone VARCHAR(15),
+    City VARCHAR(50),
+    Address VARCHAR(200),
+    RegisterDate DATE
+);
+
+------------------------------------------------
+-- Question 1:
+
+CREATE PROCEDURE sp_AddCustomer
+@CustomerID INT,
+@FirstName VARCHAR(50),
+@LastName VARCHAR(50),
+@Email VARCHAR(100),
+@Phone VARCHAR(15),
+@City VARCHAR(50),
+@Address VARCHAR(200),
+@RegisterDate DATE
+AS
+INSERT INTO Customer
+VALUES (@CustomerID,@FirstName,@LastName,@Email,@Phone,@City,@Address,@RegisterDate);
+GO
+
+------------------------------------------------
+-- Question 2:
+CREATE PROCEDURE sp_GetCustomerByID
+@CustomerID INT
+AS
+SELECT * FROM Customer WHERE CustomerID=@CustomerID;
+GO
+
+------------------------------------------------
+-- Question 3:
+
+CREATE PROCEDURE sp_UpdateCustomerContact
+@CustomerID INT,
+@Email VARCHAR(100),
+@Phone VARCHAR(15)
+AS
+UPDATE Customer
+SET Email=@Email, Phone=@Phone
+WHERE CustomerID=@CustomerID;
+GO
+
+------------------------------------------------
+-- Question4
+CREATE PROCEDURE sp_GetCustomersByCity
+@City VARCHAR(50)
+AS
+SELECT * FROM Customer WHERE City=@City;
+GO
+
+------------------------------------------------
+-- Question 5:
+CREATE PROCEDURE sp_DeleteCustomer
+@CustomerID INT
+AS
+DELETE FROM Customer WHERE CustomerID=@CustomerID;
+GO
+
+------------------------------------------------
+-- Question 6:
+
+CREATE PROCEDURE sp_CustomersByDateRange
+@FromDate DATE,
+@ToDate DATE
+AS
+SELECT * FROM Customer
+WHERE RegisterDate BETWEEN @FromDate AND @ToDate;
+GO
+
+------------------------------------------------
+-- Question 7:
+
+CREATE PROCEDURE sp_SearchCustomerByName
+@Name VARCHAR(50)
+AS
+SELECT * FROM Customer
+WHERE FirstName LIKE '%' + @Name + '%'
+   OR LastName LIKE '%' + @Name + '%';
+GO
+
+------------------------------------------------
+-- Question 8:
+CREATE PROCEDURE sp_UpdateCustomerAddress
+@CustomerID INT,
+@Address VARCHAR(200),
+@City VARCHAR(50)
+AS
+UPDATE Customer
+SET Address=@Address, City=@City
+WHERE CustomerID=@CustomerID;
+GO
+
+------------------------------------------------
+-- Question 9:
+
+CREATE PROCEDURE sp_TotalCustomers
+AS
+SELECT COUNT(*) AS TotalCustomers FROM Customer;
+GO
+
+------------------------------------------------
+-- Question 10:
+CREATE PROCEDURE sp_CustomersWithoutEmail
+AS
+SELECT * FROM Customer
+WHERE Email IS NULL OR Email='';
+GO
+
