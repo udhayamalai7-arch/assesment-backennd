@@ -1,0 +1,122 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace WindowsFormsApp5
+{
+    public partial class loginpage : Form
+    {
+        public loginpage()
+        {
+            InitializeComponent();
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            MessageBox.Show("welcome to login page");
+            comboBox1.Items.Add("ADMIN");
+            comboBox1.Items.Add("USER");
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if(textBox1.Text=="A" && textBox2.Text=="A"&& comboBox1.Text=="ADMIN")
+            {
+                MessageBox.Show("admin page is login");
+                clear();
+                adnin_page adnin = new adnin_page();
+                adnin.Show();
+            }
+            else if(textBox1.Text=="U" && textBox2.Text=="U" && comboBox1.Text=="USER")
+            {
+                MessageBox.Show("user page is login");
+                clear();
+                userpage u = new userpage();
+                u.Show();
+              
+            }
+            else
+            {
+                MessageBox.Show("not valid");
+                clear();
+            }
+            
+        }
+        public void clear()
+        {
+            textBox1.Text = "";
+            textBox2.Text = "";
+            comboBox1.Text = "";
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            textBox1.Text = "";
+            textBox2.Text = "";
+            comboBox1.Text = "";
+            
+
+
+
+        }
+    }
+}
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace WindowsFormsApp5
+{
+    public partial class ismdics : Form
+    {
+        public ismdics()
+        {
+            InitializeComponent();
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void addProductToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            adnin_page a = new adnin_page();
+            a.Show();
+        }
+
+        private void editProductToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            userpage u = new userpage();
+            u.Show();
+        }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            adnin_page a = new adnin_page();
+            a.Show();
+        }
+
+        private void fileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+    }
+}
