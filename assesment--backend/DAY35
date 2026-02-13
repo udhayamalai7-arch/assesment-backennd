@@ -1,0 +1,123 @@
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Data;
+using System.Data.SqlClient;
+using System.Configuration;
+namespace studentcurd
+{
+    public partial class studentcurd : System.Web.UI.Page
+    {
+        SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["con"].ConnectionString);
+       
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!IsPostBack)
+            {
+                LoadGrid();
+            }
+        }
+        public void LoadGrid()
+        {
+           /* SqlCommand cmd = new SqlCommand("Select * from STUDENT", con);*/
+            SqlCommand cmd = new SqlCommand("GETS", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            con.Open();
+            SqlDataReader dr = cmd.ExecuteReader();
+            GridView1.DataSource = dr;
+            GridView1.DataBind();
+            dr.Close();
+            con.Close();
+        }
+
+        protected void GridView1_RowUpdating(object sender, GridViewUpdateEventArgs e)
+        {
+            int SID = Convert.ToInt32(GridView1.DataKeys[e.RowIndex].Value);
+
+            string NAME = ((TextBox)GridView1.Rows[e.RowIndex].Cells[0].Controls[0]).Text;
+            string CLASS = ((TextBox)GridView1.Rows[e.RowIndex].Cells[1].Controls[0]).Text;
+            string DEP = ((TextBox)GridView1.Rows[e.RowIndex].Cells[2].Controls[0]).Text;
+            string PHONENO = ((TextBox)GridView1.Rows[e.RowIndex].Cells[3].Controls[0]).Text;
+            string EMAIL = ((TextBox)GridView1.Rows[e.RowIndex].Cells[4].Controls[0]).Text;
+
+            SqlCommand cmd = new SqlCommand("UPDATE STUDENT SET NAME=@NAME, CLASS=@CLASS, DEP=@DEP,PHONENO=@PHONENO,EMAIL=@EMAIL WHERE SID=@SID", con);
+
+
+           /*SqlCommand cmd = new SqlCommand("UPDATESTUDENT", con);
+            cmd.CommandType = CommandType.StoredProcedure;*/
+
+
+            cmd.Parameters.AddWithValue("@NAME", NAME);
+            cmd.Parameters.AddWithValue("@CLASS", CLASS);
+            cmd.Parameters.AddWithValue("@DEP", DEP);
+            cmd.Parameters.AddWithValue("@PHONENO", PHONENO);
+            cmd.Parameters.AddWithValue("@EMAIL", EMAIL);
+            cmd.Parameters.AddWithValue("@SID", SID);
+
+            con.Open();
+            cmd.ExecuteNonQuery();
+            con.Close();
+
+            GridView1.EditIndex = -1;
+            LoadGrid();
+        }
+
+        protected void GridView1_RowEditing(object sender, GridViewEditEventArgs e)
+        {
+            GridView1.EditIndex = e.NewEditIndex;
+            LoadGrid();
+        }
+
+        protected void GridView1_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+            int SID = Convert.ToInt32(GridView1.DataKeys[e.RowIndex].Value);
+
+            SqlCommand cmd = new SqlCommand("DELETE FROM STUDENT WHERE SID=@SId", con);
+            /*SqlCommand cmd = new SqlCommand("DELETESTUDENT", con);
+            cmd.CommandType = CommandType.StoredProcedure;*/
+
+            cmd.Parameters.AddWithValue("@SID", SID);
+            con.Open();
+            cmd.ExecuteNonQuery();
+            con.Close();
+
+            LoadGrid();
+        }
+
+        protected void GridView1_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
+        {
+            GridView1.EditIndex = -1;
+            LoadGrid();
+        }
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            /* SqlCommand cmd = new SqlCommand("insert into STUDENT (NAME,CLASS,DEP,PHONENO,EMAIL)values(@NAME,@CLASS,@DEP,@PHONENO,@EMAIL)", con);*/
+            SqlCommand cmd = new SqlCommand("INSERTSTUDENT", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@NAME", TEXTNAME.Text);
+            cmd.Parameters.AddWithValue("@CLASS", TEXTCLASS.Text);
+            cmd.Parameters.AddWithValue("@DEP", TEXTDEP.Text);
+            cmd.Parameters.AddWithValue("@PHONENO", TEXTPHONENO.Text);
+            cmd.Parameters.AddWithValue("@EMAIL", TEXTEMAIL.Text);
+
+            con.Open();
+            cmd.ExecuteNonQuery();
+            con.Close();
+
+            LoadGrid();
+            con.Close();
+            TEXTNAME.Text = "";
+            TEXTCLASS.Text = "";
+            TEXTDEP.Text = "";
+            TEXTPHONENO.Text = "";
+            TEXTEMAIL.Text = "";
+
+        }
+    }
+}
