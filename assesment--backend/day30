@@ -1,0 +1,52 @@
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="BasicWebApp.Default" %>
+
+<!DOCTYPE html>
+<html>
+<head runat="server">
+    <title>Basic Controls Example</title>
+</head>
+<body>
+    <form id="form1" runat="server">
+
+        <h2>Basic ASP.NET Controls</h2>
+
+        <!-- Button Controls -->
+        <asp:Button ID="btnClick" runat="server" 
+            Text="Click Me" 
+            OnClick="btnClick_Click" />
+
+        <br /><br />
+
+        <asp:Button ID="btnSubmit" runat="server" 
+            Text="Submit" 
+            OnClick="btnSubmit_Click" />
+
+        <br /><br />
+
+        <!-- DropDownList -->
+        <asp:Label ID="Label1" runat="server" Text="Select Course:"></asp:Label>
+        <br />
+
+        <asp:DropDownList ID="ddlCourse" runat="server">
+            <asp:ListItem Text="Select Course" Value="0"></asp:ListItem>
+            <asp:ListItem Text="C#" Value="1"></asp:ListItem>
+            <asp:ListItem Text="ASP.NET" Value="2"></asp:ListItem>
+            <asp:ListItem Text="SQL" Value="3"></asp:ListItem>
+        </asp:DropDownList>
+
+        <br /><br />
+
+        <!-- ListBox -->
+        <asp:Label ID="Label2" runat="server" Text="Select Subjects:"></asp:Label>
+        <br />
+
+        <asp:ListBox ID="lstSubjects" runat="server" SelectionMode="Multiple">
+            <asp:ListItem>Maths</asp:ListItem>
+            <asp:ListItem>Physics</asp:ListItem>
+            <asp:ListItem>Chemistry</asp:ListItem>
+        </asp:ListBox>
+
+        <br /><br />
+
+        <!-- Result Label -->
+        <asp:Label I
