@@ -1,0 +1,62 @@
+//action method
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+
+namespace mvc_day1.Controllers
+{
+    public class HomeController : Controller
+
+    {
+        public ActionResult Index()
+        {
+            return View();
+        }
+        public ActionResult Test()
+        {
+            return View();
+        }
+    }
+}
+
+ using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+
+namespace mvc_day1.Controllers
+{
+    public class DemoController : Controller
+    {
+        // GET: Demo
+        public ActionResult Index()
+        {
+            return View();
+        }
+    }
+}
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+
+namespace mvcday1project.Controllers
+{
+    public class testcontroller:Controller
+    {
+        public string index()
+        {
+            return "welcome to test index";
+        }
+        public string show()
+        {
+            return "welcome to test mvc show";
+        }
+    }
+}
