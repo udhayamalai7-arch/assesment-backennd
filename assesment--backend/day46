@@ -1,0 +1,99 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+
+namespace mvcday2.Controllers
+{
+    public class paramsController : Controller
+    {
+        // GET: params
+     //   public ActionResult Index()
+       // {
+        //    return View();
+       /// }
+        public string Index1(int id)
+        {
+            return "the valu is " + id;
+        }
+        public string index2(int id)
+        {
+            return "value of is is " + id;
+        }
+        public string index3(int id = 0)
+        {
+            return "value is optional not null" + id;
+        }
+        public string index4(int? id )
+        {
+            return "value is optional not null" + id;
+        }
+        public string index5(string id)
+        {
+            return "valu of string id" + id;
+        }
+        public string index6(int x)
+        {
+            return "value id is not x" + x;
+        }
+        public string index7(int id, string name)
+        {
+            return $"id{id}and name{name}";
+
+
+        }
+        public string index8(int ? id,string name)
+        {
+            return "age" + id + "name" + name;
+        }
+        public string index9(int pid,string name,double price)
+        {
+            return $"id{pid}name{name}price{price} ";
+        }
+        public string index10()
+        {
+            int pid = int.Parse(Request.QueryString["pid"]);
+            string pname = Request.QueryString["pname"];
+            double price = double.Parse(Request.QueryString["price"]);
+            return $"pid:{pid};pname:{pname};price:{price}";
+        }
+        //without parameter
+        public string validate1()
+        {
+            string name = Request["name"];
+            string pwd = Request["pwd"];
+            if (name == "udhaya" && pwd == "admin")
+                return "valid user";
+            else
+                return "invalid user";
+        }
+         //with parameter
+         public string validate2(string name ,string pwd)
+        {
+            if (name == "udhaya" && pwd == "admin")
+                return "valid ....";
+            else
+                return "invalid.....";
+        }
+        [ActionName("sayhello1")]
+        public string sayhello()
+        {
+            return "hellow how are you";
+        }
+        [ActionName("sayhello2")]
+        public string sayhello(string name)
+        {
+            return "hello" + name + "how sare you";
+        }
+        private string display()
+        {
+            return "nonaction1....";
+        }
+        [NonAction]
+        public string display1()
+        {
+            return "nonaction2.....";
+        }
+    }
+}
