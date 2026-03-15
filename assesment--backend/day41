@@ -1,0 +1,78 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+class Student
+{
+    public string Name { get; set; }
+    public int Age { get; set; }
+    public int Marks { get; set; }
+}
+
+class Program
+{
+    static void Main()
+    {
+        // Integer List
+        List<int> numbers = new List<int> { 10, 25, 40, 55, 60, 75, 80 };
+
+        // String List
+        List<string> names = new List<string> { "Arun", "Bala", "Anu", "Ramesh", "Suresh", "Kumar" };
+
+        // Student List
+        List<Student> students = new List<Student>
+        {
+            new Student { Name="Arun", Age=20, Marks=85 },
+            new Student { Name="Bala", Age=21, Marks=35 },
+            new Student { Name="Anu", Age=20, Marks=70 },
+            new Student { Name="Suresh", Age=22, Marks=90 },
+            new Student { Name="Ramesh", Age=19, Marks=60 }
+        };
+
+        // 1. Numbers greater than 50
+        var greaterThan50 = numbers.Where(n => n > 50);
+        Console.WriteLine("Numbers > 50: " + string.Join(", ", greaterThan50));
+
+        // 2. Even numbers
+        var evenNumbers = numbers.Where(n => n % 2 == 0);
+        Console.WriteLine("Even Numbers: " + string.Join(", ", evenNumbers));
+
+        // 3. Odd numbers
+        var oddNumbers = numbers.Where(n => n % 2 != 0);
+        Console.WriteLine("Odd Numbers: " + string.Join(", ", oddNumbers));
+
+        // 4. Strings starting with 'A'
+        var startWithA = names.Where(n => n.StartsWith("A"));
+        Console.WriteLine("Names starting with A: " + string.Join(", ", startWithA));
+
+        // 5. Names containing 'e'
+        var containE = names.Where(n => n.Contains("e"));
+        Console.WriteLine("Names containing e: " + string.Join(", ", containE));
+
+        // 6. Students with marks > 75
+        var marksAbove75 = students.Where(s => s.Marks > 75);
+        Console.WriteLine("Students with marks > 75:");
+        foreach (var s in marksAbove75)
+            Console.WriteLine(s.Name);
+
+        // 7. Students age exactly 20
+        var age20 = students.Where(s => s.Age == 20);
+        Console.WriteLine("Students with Age 20:");
+        foreach (var s in age20)
+            Console.WriteLine(s.Name);
+
+        // 8. Students marks between 60 and 90
+        var marksRange = students.Where(s => s.Marks >= 60 && s.Marks <= 90);
+        Console.WriteLine("Students marks between 60 and 90:");
+        foreach (var s in marksRange)
+            Console.WriteLine(s.Name);
+
+        // 9. Check if any student failed (marks < 40)
+        bool anyFailed = students.Any(s => s.Marks < 40);
+        Console.WriteLine("Any student failed: " + anyFailed);
+
+        // 10. Check if all students passed (marks >= 40)
+        bool allPassed = students.All(s => s.Marks >= 40);
+        Console.WriteLine("All students passed: " + allPassed);
+    }
+}
