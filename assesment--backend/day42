@@ -1,0 +1,66 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+// Book Class
+class Book
+{
+    public int BookId { get; set; }
+    public string Title { get; set; }
+    public string Author { get; set; }
+    public double Price { get; set; }
+}
+
+// Sales Class
+class Sale
+{
+    public int SaleId { get; set; }
+    public int BookId { get; set; }
+    public int Quantity { get; set; }
+}
+
+class Program
+{
+    static void Main()
+    {
+        // Book List
+        List<Book> books = new List<Book>()
+        {
+            new Book{BookId=1, Title="C# Basics", Author="John", Price=500},
+            new Book{BookId=2, Title="ASP.NET Guide", Author="David", Price=700},
+            new Book{BookId=3, Title="LINQ Master", Author="James", Price=600}
+        };
+
+        // Sales List
+        List<Sale> sales = new List<Sale>()
+        {
+            new Sale{SaleId=1, BookId=1, Quantity=3},
+            new Sale{SaleId=2, BookId=2, Quantity=2},
+            new Sale{SaleId=3, BookId=3, Quantity=5}
+        };
+
+        // LINQ Join Query
+        var result = from b in books
+                     join s in sales
+                     on b.BookId equals s.BookId
+                     select new
+                     {
+                         b.Title,
+                         b.Author,
+                         b.Price,
+                         s.Quantity,
+                         TotalAmount = b.Price * s.Quantity
+                     };
+
+        // Display Result
+        foreach (var item in result)
+        {
+            Console.WriteLine("Title: " + item.Title);
+            Console.WriteLine("Author: " + item.Author);
+            Console.WriteLine("Price: " + item.Price);
+            Console.WriteLine("Quantity Sold: " + item.Quantity);
+            Console.WriteLine("Total Amount: " + item.TotalAmount);
+            Console.WriteLine("-------------------------");
+        }
+    }
+}
