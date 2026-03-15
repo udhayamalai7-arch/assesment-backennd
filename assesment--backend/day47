@@ -1,0 +1,37 @@
+using System.Web.Mvc;
+
+namespace MvcApplication.Controllers
+{
+    public class HomeController : Controller
+    {
+        // View in default location (Views/Home/Index.cshtml)
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+        // View in default location (Views/Home/About.cshtml)
+        public ActionResult About()
+        {
+            return View();
+        }
+
+        // View in Shared folder (Views/Shared/Contact.cshtml)
+        public ActionResult Contact()
+        {
+            return View("~/Views/Shared/Contact.cshtml");
+        }
+
+        // View in Test folder (Views/Test/Services.cshtml)
+        public ActionResult Services()
+        {
+            return View("~/Views/Test/Services.cshtml");
+        }
+
+        // View in default location (Views/Home/Help.cshtml)
+        public ActionResult Help()
+        {
+            return View();
+        }
+    }
+}
