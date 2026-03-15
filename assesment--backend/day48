@@ -1,0 +1,73 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
+using System.ComponentModel.DataAnnotations;
+
+namespace MVCLoginExample
+{
+
+    // MODEL
+    public class User
+    {
+        public int Id { get; set; }
+
+        [Required]
+        public string Name { get; set; }
+
+        [Required]
+        public string Email { get; set; }
+
+        [Required]
+        public string Password { get; set; }
+    }
+
+    // CONTROLLER
+    public class AccountController : Controller
+    {
+        // Temporary user storage
+        static List<User> users = new List<User>();
+
+        // Registration Page
+        public ActionResult Register()
+        {
+            return View();
+        }
+
+        // Save Registration
+        [HttpPost]
+        public ActionResult Register(User u)
+        {
+            u.Id = users.Count + 1;
+            users.Add(u);
+            return RedirectToAction("Login");
+        }
+
+        // Login Page
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        // Login Validation
+        [HttpPost]
+        public ActionResult Login(string email, string password)
+        {
+            var user = users.FirstOrDefault(x => x.Email == email && x.Password == password);
+
+            if (user != null)
+            {
+                return RedirectToAction("UserList");
+            }
+
+            ViewBag.Message = "Invalid Login";
+            return View();
+        }
+
+        // List All Users
+        public ActionResult UserList()
+        {
+            return View(users);
+        }
+    }
+}
