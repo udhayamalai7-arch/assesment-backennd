@@ -1,0 +1,249 @@
+@model IEnumerable<curd_in_mvc.Models.studentmodel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.city)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.address)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.city)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.address)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using curd_in_mvc.Models;
+
+namespace curd_in_mvc.Controllers
+{
+    public class studentController : Controller
+    {
+        // GET: student
+        public ActionResult Index()
+        {
+          studentdbhandle dbhandle = new studentdbhandle();
+            ModelState.Clear();
+            return View(dbhandle.GetStudent());
+           
+        }
+
+        // GET: student/Details/5
+        public ActionResult Details(int id)
+        {
+            return View();
+        }
+
+        // GET: student/Create
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        // POST: student/Create
+        [HttpPost]
+       
+          
+            public ActionResult Create(studentmodel smodel)
+            {
+                try
+                {
+                    if (ModelState.IsValid)
+                    {
+                    studentdbhandle sdb = new studentdbhandle();
+                    if (sdb.AddStudent(smodel))
+                        {
+                            ViewBag.Message = "Student Details Added Successfully";
+                            ModelState.Clear();
+
+                        }
+                    }
+                    return View();
+                }
+                catch
+                {
+                    return View();
+                }
+            }
+        
+
+        // GET: student/Edit/5
+        public ActionResult Edit(int id)
+        {
+            return View();
+        }
+
+        // POST: student/Edit/5
+        [HttpPost]
+        public ActionResult Edit(int id, FormCollection collection)
+        {
+            try
+            {
+                // TODO: Add update logic here
+
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        // GET: student/Delete/5
+        public ActionResult Delete(int id)
+        {
+            return View();
+        }
+
+        // POST: student/Delete/5
+        [HttpPost]
+        public ActionResult Delete(int id, FormCollection collection)
+        {
+            try
+            {
+                // TODO: Add delete logic here
+
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+    }
+}
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Data;
+using System.Data.SqlClient;
+using System.Configuration;
+
+namespace curd_in_mvc.Models
+{
+    public class studentdbhandle
+    {
+        private SqlConnection con;
+        private void connection()
+        {
+            string constring = ConfigurationManager.ConnectionStrings["studentconn"].ToString();
+            con = new SqlConnection(constring);
+        } 
+            //add students
+            public bool AddStudent(studentmodel smodel)
+            {
+                connection();
+                SqlCommand cmd = new SqlCommand("addnewstudent", con);
+                 cmd.Parameters.AddWithValue("@name", smodel.name);
+                cmd.Parameters.AddWithValue("@city", smodel.city);
+                cmd.Parameters.AddWithValue("@address", smodel.address);
+                con.Open();
+                int i = cmd.ExecuteNonQuery();
+                con.Close();
+                if (i >= 1)
+                    return true;
+                else
+                    return false;
+            }
+
+        public List<studentmodel> GetStudent()
+        {
+            connection();
+            List<studentmodel> studentlist = new List<studentmodel>();
+
+            SqlCommand cmd = new SqlCommand("getstudentdetails", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlDataAdapter sd = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+
+            con.Open();
+            sd.Fill(dt);
+            con.Close();
+
+            foreach (DataRow dr in dt.Rows)
+            {
+                studentlist.Add(
+                new studentmodel
+                {
+                    id = Convert.ToInt32(dr["id"]),
+                    name = Convert.ToString(dr["name"]),
+                    city = Convert.ToString(dr["city"]),
+                    address = Convert.ToString(dr["address"])
+                });
+            }
+
+            return studentlist;
+        }
+        public bool updatedetials(studentmodel smodel)
+        {
+            connection();
+            SqlCommand cmd = new SqlCommand("updatedetials", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@stdid", smodel.id);
+            cmd.Parameters.AddWithValue("@name", smodel.name);
+            cmd.Parameters.AddWithValue("@city", smodel.city);
+            cmd.Parameters.AddWithValue("@address", smodel.address);
+            con.Open();
+            int i = cmd.ExecuteNonQuery();
+            con.Close();
+            if (i >= 1)
+                return true;
+            else
+                return false;
+        }
+        public bool deletestudent(int id)
+        {
+            connection();
+            SqlCommand cmd = new SqlCommand("deletestudent", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@stdid", id);
+            con.Open();
+            int i = cmd.ExecuteNonQuery();
+            con.Close();
+            if (i >= 1)
+                return true;
+            else
+                return false;
+        }
+
+
+    }
+}
