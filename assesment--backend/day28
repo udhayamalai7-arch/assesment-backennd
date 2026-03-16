@@ -1,0 +1,143 @@
+
+
+using System;
+using System.Data;
+using System.Data.SqlClient;
+using System.Windows.Forms;
+
+namespace StudentManagementSystem
+{
+    public partial class Form1 : Form
+    {
+        SqlConnection con = new SqlConnection(
+        @"Data Source=.;Initial Catalog=StudentManagementDB;Integrated Security=True");
+
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        // Load Students
+        void LoadStudents()
+        {
+            SqlCommand cmd = new SqlCommand("sp_StudentCRUD", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@Action", "SELECT");
+
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+
+            dgvStudent.DataSource = dt;
+        }
+
+        // Insert
+        private void btnInsert_Click(object sender, EventArgs e)
+        {
+            con.Open();
+
+            SqlCommand cmd = new SqlCommand("sp_StudentCRUD", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@Action", "INSERT");
+            cmd.Parameters.AddWithValue("@Name", txtName.Text);
+            cmd.Parameters.AddWithValue("@Age", txtAge.Text);
+            cmd.Parameters.AddWithValue("@Gender", cmbGender.Text);
+            cmd.Parameters.AddWithValue("@Course", txtCourse.Text);
+            cmd.Parameters.AddWithValue("@Phone", txtPhone.Text);
+
+            cmd.ExecuteNonQuery();
+            con.Close();
+
+            MessageBox.Show("Student Inserted Successfully");
+            LoadStudents();
+        }
+
+        // Update
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            con.Open();
+
+            SqlCommand cmd = new SqlCommand("sp_StudentCRUD", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@Action", "UPDATE");
+            cmd.Parameters.AddWithValue("@Id", txtId.Text);
+            cmd.Parameters.AddWithValue("@Name", txtName.Text);
+            cmd.Parameters.AddWithValue("@Age", txtAge.Text);
+            cmd.Parameters.AddWithValue("@Gender", cmbGender.Text);
+            cmd.Parameters.AddWithValue("@Course", txtCourse.Text);
+            cmd.Parameters.AddWithValue("@Phone", txtPhone.Text);
+
+            cmd.ExecuteNonQuery();
+            con.Close();
+
+            MessageBox.Show("Student Updated Successfully");
+            LoadStudents();
+        }
+
+        // Delete
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            con.Open();
+
+            SqlCommand cmd = new SqlCommand("sp_StudentCRUD", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@Action", "DELETE");
+            cmd.Parameters.AddWithValue("@Id", txtId.Text);
+
+            cmd.ExecuteNonQuery();
+            con.Close();
+
+            MessageBox.Show("Student Deleted Successfully");
+            LoadStudents();
+        }
+
+        // Search
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            con.Open();
+
+            SqlCommand cmd = new SqlCommand("sp_StudentCRUD", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@Action", "SELECTONE");
+            cmd.Parameters.AddWithValue("@Id", txtId.Text);
+
+            SqlDataReader dr = cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                txtName.Text = dr["Name"].ToString();
+                txtAge.Text = dr["Age"].ToString();
+                cmbGender.Text = dr["Gender"].ToString();
+                txtCourse.Text = dr["Course"].ToString();
+                txtPhone.Text = dr["Phone"].ToString();
+            }
+            else
+            {
+                MessageBox.Show("Student Not Found");
+            }
+
+            con.Close();
+        }
+
+        // Load Button
+        private void btnLoad_Click(object sender, EventArgs e)
+        {
+            LoadStudents();
+        }
+
+        // Grid Click
+        private void dgvStudent_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            txtId.Text = dgvStudent.Rows[e.RowIndex].Cells[0].Value.ToString();
+            txtName.Text = dgvStudent.Rows[e.RowIndex].Cells[1].Value.ToString();
+            txtAge.Text = dgvStudent.Rows[e.RowIndex].Cells[2].Value.ToString();
+            cmbGender.Text = dgvStudent.Rows[e.RowIndex].Cells[3].Value.ToString();
+            txtCourse.Text = dgvStudent.Rows[e.RowIndex].Cells[4].Value.ToString();
+            txtPhone.Text = dgvStudent.Rows[e.RowIndex].Cells[5].Value.ToString();
+        }
+    }
+}
