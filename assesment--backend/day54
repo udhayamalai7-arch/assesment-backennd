@@ -1,0 +1,89 @@
+
+@{
+    ViewBag.Title = "register";
+}
+
+<h1 style="text-align:center;color:red;text-decoration:underline">cds technologis</h1>
+<h3 style="text-align:center;text-decoration:underline">registration page</h3>
+<table align="center">
+    <tr>
+        <td>name</td>
+        <td><input type="text" id="txtname" name="txtname" /></td>
+    </tr>
+    <tr>
+        <td>userid</td>
+        <td><input type="text" id="userid" name="userid" /></td>
+    </tr>
+    <tr>
+        <td>password</td>
+        <td><input type="password" id="userpass" name="pass" /></td>
+    </tr>
+    <tr>
+        <td>confirm password</td>
+        <td><input type="password" id="conpass" name="conpass" /></td>
+    </tr>
+    <tr>
+        <td>mobile</td>
+        <td><input type="tel" id="tel" name="userphoneno" /></td>
+    </tr>
+    <tr>
+        <td>email id</td>
+        <td><input type="email" id="email" name="useremail" /></td>
+    </tr>
+</table>
+<h4 style="text-align:center;color:red">
+    Click here to go to <a href="/Home/Index">Home Page.</a>
+</h4>
+       
+
+
+@{
+ViewBag.Title = "login";
+}
+
+<h1 style="text-align:center;color:red;text-decoration:underline">CDS Technologies</h1>
+<h3 style="text-align:center;text-decoration:underline">Login Page</h3>
+<table align="center">
+    <tr>
+        <td>User Id:</td>
+        <td><input type="text" id="txtUid" name="txtUid" /></td>
+    </tr>
+    <tr>
+        <td>Password:</td>
+        <td><input type="password" id="txtPwd" name="txtPwd" /></td>
+    </tr>
+    <tr>
+        <td colspan="2" align="center">
+            <input type="submit" id="btnLogin" value="Login" />
+            <input type="reset" id="btnReset" value="Reset" />
+        </td>
+    </tr>
+</table>
+<h4 style="text-align:center;color:red">
+    Click here to go to <a href="/Home/Index">Home Page.</a>
+</h4>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+
+namespace day3mvcview.Controllers
+{
+public class homeController : Controller
+{
+// GET: home
+public ActionResult Index()
+{
+return View();
+}
+public ViewResult register()
+{
+return View();
+}
+public ViewResult login()
+{
+return View();
+}
+}
+}
