@@ -1,0 +1,116 @@
+using System;
+using System.Data;
+using System.Data.SqlClient;
+using System.Windows.Forms;
+
+namespace ProductUserProject
+{
+    public partial class Form1 : Form
+    {
+        SqlConnection con = new SqlConnection
+        ("Data Source=.;Initial Catalog=ProductUserDB;Integrated Security=True");
+
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        // LOGIN BUTTON
+        private void btnLogin_Click(object sender, EventArgs e)
+        {
+            SqlCommand cmd = new SqlCommand
+            ("select count(*) from Users where UserName=@u and Password=@p", con);
+
+            cmd.Parameters.AddWithValue("@u", txtUser.Text);
+            cmd.Parameters.AddWithValue("@p", txtPass.Text);
+
+            con.Open();
+
+            int count = (int)cmd.ExecuteScalar();
+
+            con.Close();
+
+            if (count > 0)
+            {
+                MessageBox.Show("Login Success");
+                LoadProducts();
+            }
+            else
+            {
+                MessageBox.Show("Invalid Login");
+            }
+        }
+
+        // LOAD PRODUCTS
+        void LoadProducts()
+        {
+            SqlDataAdapter da = new SqlDataAdapter
+            ("select * from Products", con);
+
+            DataTable dt = new DataTable();
+
+            da.Fill(dt);
+
+            dataGridView1.DataSource = dt;
+        }
+
+        // INSERT PRODUCT
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            SqlCommand cmd = new SqlCommand
+            ("insert into Products values(@name,@price,@qty)", con);
+
+            cmd.Parameters.AddWithValue("@name", txtName.Text);
+            cmd.Parameters.AddWithValue("@price", txtPrice.Text);
+            cmd.Parameters.AddWithValue("@qty", txtQty.Text);
+
+            con.Open();
+            cmd.ExecuteNonQuery();
+            con.Close();
+
+            LoadProducts();
+        }
+
+        // UPDATE PRODUCT
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            SqlCommand cmd = new SqlCommand
+            ("update Products set ProductName=@name,Price=@price,Quantity=@qty where ProductId=@id", con);
+
+            cmd.Parameters.AddWithValue("@id", txtId.Text);
+            cmd.Parameters.AddWithValue("@name", txtName.Text);
+            cmd.Parameters.AddWithValue("@price", txtPrice.Text);
+            cmd.Parameters.AddWithValue("@qty", txtQty.Text);
+
+            con.Open();
+            cmd.ExecuteNonQuery();
+            con.Close();
+
+            LoadProducts();
+        }
+
+        // DELETE PRODUCT
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            SqlCommand cmd = new SqlCommand
+            ("delete from Products where ProductId=@id", con);
+
+            cmd.Parameters.AddWithValue("@id", txtId.Text);
+
+            con.Open();
+            cmd.ExecuteNonQuery();
+            con.Close();
+
+            LoadProducts();
+        }
+
+        // GRID CLICK
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            txtId.Text = dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString();
+            txtName.Text = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
+            txtPrice.Text = dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString();
+            txtQty.Text = dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString();
+        }
+    }
+}
