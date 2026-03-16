@@ -1,0 +1,202 @@
+CREATE DATABASE EmployeeDB
+GO
+
+USE EmployeeDB
+
+CREATE TABLE Employee
+(
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    Name VARCHAR(50),
+    Age INT,
+    Department VARCHAR(50),
+    Salary DECIMAL(10,2)
+)
+CREATE PROCEDURE sp_EmployeeCRUD
+@Action VARCHAR(20),
+@Id INT = NULL,
+@Name VARCHAR(50) = NULL,
+@Age INT = NULL,
+@Department VARCHAR(50) = NULL,
+@Salary DECIMAL(10,2) = NULL
+AS
+BEGIN
+
+IF @Action='INSERT'
+INSERT INTO Employee(Name,Age,Department,Salary)
+VALUES(@Name,@Age,@Department,@Salary)
+
+IF @Action='UPDATE'
+UPDATE Employee
+SET Name=@Name, Age=@Age, Department=@Department, Salary=@Salary
+WHERE Id=@Id
+
+IF @Action='DELETE'
+DELETE FROM Employee WHERE Id=@Id
+
+IF @Action='SELECT'
+SELECT * FROM Employee
+
+IF @Action='SELECTONE'
+SELECT * FROM Employee WHERE Id=@Id
+
+END
+
+using System;
+
+namespace MVCEmployee.Models
+{
+    public class Employee
+    {
+        public int Id { get; set; }
+
+        public string Name { get; set; }
+
+        public int Age { get; set; }
+
+        public string Department { get; set; }
+
+        public decimal Salary { get; set; }
+    }
+}
+using MVCEmployee.Models;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
+using System.Web.Mvc;
+
+namespace MVCEmployee.Controllers
+{
+    public class EmployeeController : Controller
+    {
+        string conStr = ConfigurationManager.ConnectionStrings["dbcon"].ConnectionString;
+
+        public ActionResult Index()
+        {
+            List<Employee> list = new List<Employee>();
+
+            using (SqlConnection con = new SqlConnection(conStr))
+            {
+                SqlCommand cmd = new SqlCommand("sp_EmployeeCRUD", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Action", "SELECT");
+
+                con.Open();
+
+                SqlDataReader dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    list.Add(new Employee
+                    {
+                        Id = Convert.ToInt32(dr["Id"]),
+                        Name = dr["Name"].ToString(),
+                        Age = Convert.ToInt32(dr["Age"]),
+                        Department = dr["Department"].ToString(),
+                        Salary = Convert.ToDecimal(dr["Salary"])
+                    });
+                }
+            }
+
+            return View(list);
+        }
+
+        [HttpPost]
+        public ActionResult Insert(Employee emp)
+        {
+            using (SqlConnection con = new SqlConnection(conStr))
+            {
+                SqlCommand cmd = new SqlCommand("sp_EmployeeCRUD", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("@Action", "INSERT");
+                cmd.Parameters.AddWithValue("@Name", emp.Name);
+                cmd.Parameters.AddWithValue("@Age", emp.Age);
+                cmd.Parameters.AddWithValue("@Department", emp.Department);
+                cmd.Parameters.AddWithValue("@Salary", emp.Salary);
+
+                con.Open();
+                cmd.ExecuteNonQuery();
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Delete(int id)
+        {
+            using (SqlConnection con = new SqlConnection(conStr))
+            {
+                SqlCommand cmd = new SqlCommand("sp_EmployeeCRUD", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("@Action", "DELETE");
+                cmd.Parameters.AddWithValue("@Id", id);
+
+                con.Open();
+                cmd.ExecuteNonQuery();
+            }
+
+            return RedirectToAction("Index");
+        }
+    }
+}
+@model IEnumerable<MVCEmployee.Models.Employee>
+
+@{
+    ViewBag.Title = "Employee CRUD";
+}
+
+<h2>Employee Management</h2>
+
+<form method="post" action="/Employee/Insert">
+
+    Name
+    <input type="text" name="Name" />
+
+    Age
+    <input type="text" name="Age" />
+
+    Department
+    <input type="text" name="Department" />
+
+    Salary
+    <input type="text" name="Salary" />
+
+    <input type="submit" value="Insert Employee" />
+
+</form>
+
+<hr />
+
+<table border="1">
+
+<tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Age</th>
+    <th>Department</th>
+    <th>Salary</th>
+    <th>Action</th>
+</tr>
+
+@foreach (var item in Model)
+{
+<tr>
+    <td>@item.Id</td>
+    <td>@item.Name</td>
+    <td>@item.Age</td>
+    <td>@item.Department</td>
+    <td>@item.Salary</td>
+
+    <td>
+        <a href="/Employee/Delete/@item.Id">Delete</a>
+    </td>
+</tr>
+}
+
+</table>
+<connectionStrings>
+  <add name="dbcon"
+       connectionString="Data Source=.;Initial Catalog=EmployeeDB;Integrated Security=True"
+       providerName="System.Data.SqlClient"/>
+</connectionStrings>
